@@ -8,7 +8,7 @@ const methods = {
         return fetch('http://localhost:3001/createUser', {headers: headers.headers, body: JSON.stringify(user), method: "POST"})
     },
     getProfSpec: () => {
-        return fetch('http://localhost:3001/getProfSpecInner', {headers: headers.headers,method: "GET"})
+        return fetch('http://localhost:3001/getProfSpec', {headers: headers.headers,method: "GET"})
     },
     getProf: () => {
         return fetch('http://localhost:3001/getProf', {headers: headers.headers,method: "GET"})
