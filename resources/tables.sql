@@ -1,5 +1,3 @@
---postgres 12
-
 CREATE TABLE profission 
 (
 	prof_Id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -16,7 +14,7 @@ CREATE TABLE speciality
 
 CREATE TABLE professional_info
 (	
-	profId int GENERATED ALWAYS AS IDENTITY,
+	profId int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	prof_id_fk int NOT NULL,
 	prof_reg_number VARCHAR NOT NULL,
 	prof_number VARCHAR NOT NULL,
@@ -29,13 +27,15 @@ CREATE TABLE professional_info
 CREATE TABLE users 
 (
 	userId int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,  
-	email VARCHAR NOT NULL,
+	avatar BYTEA,
 	full_name VARCHAR NOT NULL,
-	pass VARCHAR NOT NULL,
 	login VARCHAR NOT NULL,
+	email VARCHAR NOT NULL,
+	pass VARCHAR NOT NULL,
 	gender VARCHAR NOT NULL,
 	birth_date DATE NOT NULL,
-	avatar BYTEA NOT NULL
+	prof_id_fk int NOT NULL,
+	CONSTRAINT prof_id_user FOREIGN KEY (prof_id_fk) REFERENCES professional_info(profId)
 );
 
 CREATE TABLE doc_upload
@@ -46,3 +46,6 @@ CREATE TABLE doc_upload
 	file_name VARCHAR NOT NULL,
 	CONSTRAINT user_doc FOREIGN KEY (user_id_fk) REFERENCES users(userId) 
 );
+
+
+	
