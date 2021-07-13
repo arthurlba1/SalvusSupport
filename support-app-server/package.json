@@ -4,14 +4,18 @@
   "description": "Server Side",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "devStart": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "arthurlba1 <1arthurluiz1@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "nodemon": "^2.0.12",
-    "postgresql": "0.0.1"
+    "pg": "^8.6.0"
   }
 }
