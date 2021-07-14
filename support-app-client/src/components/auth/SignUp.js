@@ -23,7 +23,6 @@ const INITIAL_STATE = {
 
   };
 
-
 export default class SignUp extends Component {
     
     constructor(props) {
@@ -96,7 +95,6 @@ export default class SignUp extends Component {
             displacement: this.state.displacement,
             avatar: null,
         }
-        console.log(User);
         methods.createUser(User).then(res => {
             console.log(res)
         });

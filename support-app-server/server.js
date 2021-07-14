@@ -50,18 +50,33 @@ app.post("/createUser",(req,res) => {
             if (errProf) {
             console.log(errProf.stack)
             }
-            //console.log(resultProf)
-            
         pool.query(userQuery, [data.avatar, data.name, data.user, data.email, data.password, data.gender, data.birthDate, resultProf.rows[0].profid] , (errUser, resultUser) =>{
             if (errUser) {
                 console.log(errUser.stack)
             } else {
-                console.log(resultUser.rows[0])
                 res.send(resultUser)
             }
         })
     })
 });
+
+app.post("/loginUser", (req,res) => {
+    var data = (req.body);
+    var pool = openConnection();
+    let loginQuery = "SELECT userid FROM users WHERE login = $1 AND pass = $2";
+    pool.query(loginQuery, [data.login, data.password], (loginErr, loginResult) => {
+        if(loginErr) {
+            console.log(loginErr);
+        } else if (loginResult.rows[0]) {
+            console.log(loginResult)
+            res.send(loginResult.rows[0])
+        } else {
+            console.log("a")
+            res.send({message: 'Usúario ou Senha incorreto!'});
+        }
+    });
+});
+
 app.listen(3001, () => {
  console.log('running on port 3001');
 });
