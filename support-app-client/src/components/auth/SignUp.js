@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Select from 'react-select'
 import methods from './../../service.js';
+import Util from '../../commons/Utils.js';
+import InputMask from "react-input-mask";
 
 const INITIAL_STATE = {
     email: '',
@@ -19,10 +21,16 @@ const INITIAL_STATE = {
     step: 1,
     data: [],
     dataProf: [],
-    dataSpec: []
-
+    dataSpec: [],
+    validEmail: false
   };
 
+const genders = [
+    { value: 'Masculino', label: 'Masculino' },
+    { value: 'Feminino', label: 'Feminino' },
+    { value: 'Outro', label: 'Prefiro não dizer' },
+    { value: 'Outro', label: 'Outro' }
+  ]
 export default class SignUp extends Component {
     
     constructor(props) {
@@ -49,7 +57,14 @@ export default class SignUp extends Component {
 
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
-      };
+    }
+    onChangeEmail = event => {
+        this.setState({ [event.target.name]: event.target.value, validEmail: Util.validEmail(event.target.value)});
+    }
+    onChangeGender = event => {
+        let selected = event.value;
+        this.setState({...this.state, gender: selected});
+    }
     onProfChanged = event => {
         let selected = event.value;
         let availableSpec = [];
@@ -106,57 +121,98 @@ export default class SignUp extends Component {
             return (
             <div className="userForm">
                 <form>
-                <label>User<input type="text" value={this.state.user} name="user" placeholder="Enter your user" onChange={this.onChange}/></label>
-                <label>Name<input type="text" value={this.state.name} name="name" placeholder="Enter your name" onChange={this.onChange}/></label>
-                <label>Email<input type="text" value={this.state.email} name="email" placeholder="Enter your email" onChange={this.onChange}/></label>
-                <label>Password<input type="password" value={this.state.password} name="password" placeholder="Enter your password" onChange={this.onChange}/></label>
-                <input type="button" name="step" value="next" onClick={this.submitNext}/>
+                    <div>
+                        <label>Usúario</label>
+                        <input type="text" value={this.state.user} name="user" placeholder="Insira o usúario" onChange={this.onChange}/>
+                    </div>
+                    <div>
+                        <label>Nome Completo</label>
+                        <input type="text" value={this.state.name} name="name" placeholder="Insira seu nome completo" onChange={this.onChange}/>
+                    </div>
+                    <div>
+                        <label>E-mail</label>
+                        <input type="text" value={this.state.email} name="email" placeholder="Insira seu e-mail" onChange={this.onChangeEmail}/>
+                        {!this.state.validEmail && <p>Email inválido</p>}
+                    
+                    </div>
+                    <div>
+                        <label>Senha</label>
+                        <input type="password" value={this.state.password} name="password" placeholder="Insira sua senha" onChange={this.onChange}/>
+                    </div>
+                    <input type="button" name="step" value="next" onClick={this.submitNext}/>
                 </form>
             </div>
             ) 
         } else if(this.state.step === 2) {
             return (
                 <div>
-                    <form>
-                    <label>Birth Date<input type="date" value={this.state.birthDate} name="birthDate" placeholder="Enter your birth date" onChange={this.onChange}/></label>
-                    <label>Gender<input type="text" value={this.state.gender} name="gender" placeholder="Enter your gender" onChange={this.onChange}/></label>
-                    <label>Telephone<input type="text" value={this.state.telephone} name="telephone" placeholder="Enter your telephone" onChange={this.onChange}/></label>
-                    <input type="button" name="step" value="next" onClick={this.submitNext}/>
-                    <input type="button" name="step" value="previous" onClick={this.submitPrevious}/>    
-                    </form>
+                <form>
+                    <div>
+                        <label>Data de nascimento</label>
+                        <input type="date" value={this.state.birthDate} name="birthDate" placeholder="Insira sua data de nascimento" onChange={this.onChange}/>
+                    </div>
+                    <div>
+                        <label>Gênero</label>
+                        <Select name="gender" placeholder="Como você se identifica ?" onChange={this.onChangeGender} options={genders}/>
+                    </div>
+                    <div>
+                        <label>Telephone</label>
+                        <InputMask mask="(99)99999-9999" value={this.state.telephone} name="telephone" placeholder="Qual seu número ?" onChange={this.onChange}/>
+                    </div>
+                    <input type="button" name="step" value="previous" onClick={this.submitPrevious}/>   
+                    <input type="button" name="step" value="next" onClick={this.submitNext}/> 
+                </form>
                 </div>
             )
         } else if(this.state.step === 3) {
             return (
                 <div>
-                    <form>
-                    <label>Profissão<Select name="profission" onChange={this.onProfChanged} options={this.state.dataProf}/></label>
-                    <label>Register Number<input type="text" value={this.state.regNumber} name="regNumber" placeholder="Enter your register number" onChange={this.onChange}/></label>
-                    <label>Especialidade<Select  isMulti name="speciality" onChange={this.onSpecChanged} options={this.state.dataSpec}/></label>
-                    <label>Location<input type="text" value={this.state.location} name="location" placeholder="Enter your location" onChange={this.onChange}/></label>
-                    <input type="button" name="step" value="next" onClick={this.submitNext}/>
+                <form>
+                    <div>
+                        <label>Profissão</label>
+                        <Select name="profission" placeholder="Qual sua profissão ?" onChange={this.onProfChanged} options={this.state.dataProf}/>
+                    </div>
+                    <div>
+                        <label>Register Number</label>
+                        <input type="text" value={this.state.regNumber} name="regNumber" placeholder="Enter your register number" onChange={this.onChange}/>
+                    </div>
+                    <div>
+                        <label>Especialidade</label>
+                        <Select isMulti name="speciality" onChange={this.onSpecChanged} options={this.state.dataSpec}/>
+                    </div>
+                    <div>
+                        <label>Location</label>
+                        <input type="text" value={this.state.location} name="location" placeholder="Enter your location" onChange={this.onChange}/>
+                    </div>
                     <input type="button" name="step" value="previous" onClick={this.submitPrevious}/>
-                    </form>
+                    <input type="button" name="step" value="next" onClick={this.submitNext}/>
+                </form>
                 </div>
             )
         } else if(this.state.step === 4){
             return (
                 <div>
-                    <form>
-                    <label>Displacement<input type="text" value={this.state.displacement} name="displacement" placeholder="Enter your displacement" onChange={this.onChange}/></label>
-                    <input type="button" name="step" value="next" onClick={this.submitNext}/>
+                <form>
+                    <div>
+                        <label>Displacement</label>
+                        <input type="text" value={this.state.displacement} name="displacement" placeholder="Enter your displacement" onChange={this.onChange}/>
+                    </div>
                     <input type="button" name="step" value="previous" onClick={this.submitPrevious}/>
-                    </form>
+                    <input type="button" name="step" value="next" onClick={this.submitNext}/>
+                </form>
                 </div>
             )
         } else if(this.state.step === 5){
             return (
                 <div>
-                    <form>
-                    <label>Documents and certificates<input type="text" value={this.state.displacement} name="Documents" placeholder="upload files" onChange={this.onChange}/></label>
-                    <input type="button" name="step" value="submit" onClick={this.submitUser}/>
+                <form>
+                    <div>
+                        <label>Documents and certificates</label>
+                        <input type="text" value={this.state.displacement} name="Documents" placeholder="upload files" onChange={this.onChange}/>
+                    </div>
                     <input type="button" name="step" value="previous" onClick={this.submitData}/>
-                    </form>
+                    <input type="button" name="step" value="submit" onClick={this.submitUser}/>
+                </form>
                 </div>
             )
         }

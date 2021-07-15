@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import methods from './../../service.js';
+import './../../App.css';
+import './../../assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css';
 
 const INITIAL_STATE = {
     login: '',
@@ -28,20 +30,47 @@ export default class SignIn extends Component {
 
     render(){
         return (
-            <div className="userLogin">
-                <div>
-                    <label name="user">Login:</label>
-                    <input type="text" name="login" value={this.state.login} onChange={this.onChange} placeholder = "Insira seu login"/>
+            <div className="login-container">
+                <div className="logo-container">   
                 </div>
-                <div>
-                    <label name="password">Senha</label>
-                    <input type="password" name="password" value={this.state.password} onChange={this.onChange} placeholder = "Insira sua senha"/>
-                </div>
-                <div>
-                    <button onClick={this.loginUser}>Login</button>
+                <div className="child">
+                    <label className="member-login">Salvus Login</label>
+                    <div className="login-div">
+                        <input className="input-user" type="text" name="login" value={this.state.login} onChange={this.onChange} placeholder = "User" required/>
+                        <span className="focus-input"></span>
+						<span className="symbol-input">
+							<i className="fa fa-envelope " aria-hidden="true"></i>
+						</span>
+                    </div>
+
+                    <div className="login-div" data-validate = "Password is required">
+                        <input className="input-pass"  type="password" name="password" value={this.state.password} onChange={this.onChange} placeholder = "Password"
+                            minLength="8" required/>
+                        <span className="focus-input"></span>
+						<span className="symbol-input">
+							<i className="fa fa-lock"  aria-hidden="true"></i>
+						</span>
+                    </div>
+                    <div className="container-login-button">
+                        <button className="login-button" onClick={this.loginUser}>Login</button>
+                    </div> 
+                    <div className="text-center">
+						<span class="txt1">
+							Forgot 
+						</span>
+						<a className="txt2" href="#">
+							Username / Password?
+						</a>
+					</div>
+                    
+                    <div class="text-center c-a">
+						<a class="txt2" href="#">
+							Create your Account
+							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+						</a>
+					</div>
                 </div>
             </div>
-            
         )
     }
 
