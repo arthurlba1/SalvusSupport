@@ -3,6 +3,8 @@ import Select from 'react-select'
 import methods from './../../service.js';
 import Util from '../../commons/Utils.js';
 import InputMask from "react-input-mask";
+import './../../signUp.css';
+import './../../App.css';
 
 const INITIAL_STATE = {
     email: '',
@@ -31,6 +33,19 @@ const genders = [
     { value: 'Outro', label: 'Prefiro não dizer' },
     { value: 'Outro', label: 'Outro' }
   ]
+
+  const selectStyle = {
+    control: styles => ({
+        ...styles,
+        backgroundColor: '#e6e6e6',
+        border: 'none',
+        width: '260px',
+        height: '50px',
+        padding: '0 30px 0 68px',
+        borderRadius: '25px',
+    }),
+  }
+
 export default class SignUp extends Component {
     
     constructor(props) {
@@ -87,8 +102,11 @@ export default class SignUp extends Component {
         this.setState({...this.state, step: value});
     }
     submitPrevious = event =>{
-        let value = this.state.step - 1;
-        this.setState({...this.state, step: value});
+        if(this.state.step > 1){
+            let value = this.state.step - 1;
+            this.setState({...this.state, step: value});
+        }
+
     }
     submitData = event =>{
         let value = this.state.step - 1;
@@ -115,95 +133,114 @@ export default class SignUp extends Component {
         });
     }
     
-    
     formState = () => {
         if(this.state.step === 1){
             return (
-            <div className="userForm">
-                <form>
-                    <div>
-                        <label>Usúario</label>
-                        <input type="text" value={this.state.user} name="user" placeholder="Insira o usúario" onChange={this.onChange}/>
+                <div>
+                    <div className="register-div">
+                        <input className="input-reg" type="text" value={this.state.user} name="user" placeholder="User" onChange={this.onChange}/>
+                        <span className="focus-input"></span>
+                        <span className="symbol-input">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </span>
                     </div>
-                    <div>
-                        <label>Nome Completo</label>
-                        <input type="text" value={this.state.name} name="name" placeholder="Insira seu nome completo" onChange={this.onChange}/>
+
+                    <div className="register-div">
+                        <input className="input-fullname" type="text" value={this.state.name} name="name" placeholder="Full Name" onChange={this.onChange}/>
+                        <span className="focus-input"></span>
+                        <span className="symbol-input ">
+                            <i class="fa fa-font" aria-hidden="true"></i>
+                        </span>
                     </div>
-                    <div>
-                        <label>E-mail</label>
-                        <input type="text" value={this.state.email} name="email" placeholder="Insira seu e-mail" onChange={this.onChangeEmail}/>
-                        {!this.state.validEmail && <p>Email inválido</p>}
-                    
+
+                    <div className="register-div">
+                        <input className="input-email" type="text" value={this.state.email} name="email" placeholder="E-mail" onChange={this.onChangeEmail}/>
+                        {!this.state.validEmail}
+                        <span className="focus-input"></span>
+                        <span className="symbol-input ">
+							<i className="fa fa-envelope" aria-hidden="true"></i>
+						</span>
                     </div>
-                    <div>
-                        <label>Senha</label>
-                        <input type="password" value={this.state.password} name="password" placeholder="Insira sua senha" onChange={this.onChange}/>
+
+                    <div className="register-div">
+                        <input className="input-password" type="password" value={this.state.password} name="password" placeholder="Password" onChange={this.onChange}/>
+                        <span className="focus-input"></span>
+                        <span className="symbol-input">
+                            <i className="fa fa-lock"  aria-hidden="true"></i>
+                        </span>
                     </div>
-                    <input type="button" name="step" value="next" onClick={this.submitNext}/>
-                </form>
-            </div>
-            ) 
+
+                    </div>
+            )
         } else if(this.state.step === 2) {
             return (
                 <div>
-                <form>
-                    <div>
-                        <label>Data de nascimento</label>
-                        <input type="date" value={this.state.birthDate} name="birthDate" placeholder="Insira sua data de nascimento" onChange={this.onChange}/>
+                    <div className="register-div">
+                        <input className="input-birthdate" type="date" value={this.state.birthDate} name="birthDate" placeholder="Birth Date" onChange={this.onChange}/>
+                        <span className="focus-input"></span>
+                        <span className="symbol-input">
+                            <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                        </span>
                     </div>
-                    <div>
-                        <label>Gênero</label>
-                        <Select name="gender" placeholder="Como você se identifica ?" onChange={this.onChangeGender} options={genders}/>
+
+                    <div className="register-div">
+                        <InputMask className="input-tel" mask="(99)99999-9999" value={this.state.telephone} name="telephone" placeholder="Telephone" onChange={this.onChange}/>
+                        <span className="focus-input"></span>
+                        <span className="symbol-input">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                        </span>
+                    </div>   
+
+                    <div className="register-div">
+                        <Select className="input-gender" styles={selectStyle} width='350px' name="gender" placeholder="Gender" onChange={this.onChangeGender} options={genders}/>
+                        <span className="focus-input"></span>
+                        <span className="symbol-input">
+                            <i class="fa fa-transgender" aria-hidden="true"></i>
+                        </span>
                     </div>
-                    <div>
-                        <label>Telephone</label>
-                        <InputMask mask="(99)99999-9999" value={this.state.telephone} name="telephone" placeholder="Qual seu número ?" onChange={this.onChange}/>
-                    </div>
-                    <input type="button" name="step" value="previous" onClick={this.submitPrevious}/>   
-                    <input type="button" name="step" value="next" onClick={this.submitNext}/> 
-                </form>
+
                 </div>
             )
         } else if(this.state.step === 3) {
             return (
                 <div>
-                <form>
-                    <div>
-                        <label>Profissão</label>
-                        <Select name="profission" placeholder="Qual sua profissão ?" onChange={this.onProfChanged} options={this.state.dataProf}/>
+                    <div className="register-div">
+                        <Select className="input-profession" name="profission" placeholder="Profession" onChange={this.onProfChanged} options={this.state.dataProf}/>
+                        <span className="focus-input"></span>
+                        <span className="symbol-input">
+                            <i class="fa fa-address-card" aria-hidden="true"></i>
+                        </span>
                     </div>
-                    <div>
-                        <label>Register Number</label>
-                        <input type="text" value={this.state.regNumber} name="regNumber" placeholder="Enter your register number" onChange={this.onChange}/>
+                    
+                    <div className="register-div">
+                        <input className="input-regnumber" type="text" value={this.state.regNumber} name="regNumber" placeholder="Register Number" onChange={this.onChange}/>
+                        <span className="focus-input"></span>
+                        <span className="symbol-input">
+                            <i class="fa fa-id-card" aria-hidden="true"></i>
+                        </span>
                     </div>
-                    <div>
-                        <label>Especialidade</label>
-                        <Select isMulti name="speciality" onChange={this.onSpecChanged} options={this.state.dataSpec}/>
+                
+                    <div className="register-div">
+                        <Select className="input-spec" isMulti name="speciality" placeholder="Speciality" onChange={this.onSpecChanged} options={this.state.dataSpec}/>
+                        <span className="focus-input"></span>
+                        <span className="symbol-input">
+                            <i class="fa fa-list-alt" aria-hidden="true"></i>
+                        </span>
                     </div>
-                    <div>
-                        <label>Location</label>
-                        <input type="text" value={this.state.location} name="location" placeholder="Enter your location" onChange={this.onChange}/>
+
+                    <div className="register-div">
+                        <input className="input-displacement" type="text" value={this.state.displacement} name="displacement" placeholder="Displacement" onChange={this.onChange}/>
+                        <span className="focus-input"></span>
+                        <span className="symbol-input">
+                            <i class="fa fa-car" aria-hidden="true"></i>
+                        </span>
                     </div>
-                    <input type="button" name="step" value="previous" onClick={this.submitPrevious}/>
-                    <input type="button" name="step" value="next" onClick={this.submitNext}/>
-                </form>
+                    
                 </div>
             )
         } else if(this.state.step === 4){
             return (
-                <div>
-                <form>
-                    <div>
-                        <label>Displacement</label>
-                        <input type="text" value={this.state.displacement} name="displacement" placeholder="Enter your displacement" onChange={this.onChange}/>
-                    </div>
-                    <input type="button" name="step" value="previous" onClick={this.submitPrevious}/>
-                    <input type="button" name="step" value="next" onClick={this.submitNext}/>
-                </form>
-                </div>
-            )
-        } else if(this.state.step === 5){
-            return (
+
                 <div>
                 <form>
                     <div>
@@ -214,12 +251,35 @@ export default class SignUp extends Component {
                     <input type="button" name="step" value="submit" onClick={this.submitUser}/>
                 </form>
                 </div>
+
             )
         }
     }
 
     render(){
-        return (this.formState());
+        return (
+            <div className="register-container 1">
+                <div className="child register">
+                    <label className="member-register">Register Form</label>
+                        {this.formState()}
+                        <div className="container-next-button">
+                            <input className="next-button"type="button" name="step" onClick={this.submitNext}/>
+                            <span className="focus-input"></span>
+                            <span className="symbol-input">
+                                <i className="fa fa-2x fa-arrow-right arrow-right"  aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div className="container-prev-button">
+                            <input className="prev-button" type="button" name="step" onClick={this.submitPrevious}/>
+                            <span className="focus-input"></span>
+                            <span className="symbol-input">
+                                <i className="fa fa-2x fa-arrow-left arrow-left"  aria-hidden="true"></i>
+                            </span>
+                        </div>
+                </div>
+            </div>
+            
+            );
     }
 
 }

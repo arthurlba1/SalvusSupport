@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import methods from './../../service.js';
 import './../../App.css';
-import './../../assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css';
+
 
 const INITIAL_STATE = {
     login: '',
@@ -29,11 +29,29 @@ export default class SignIn extends Component {
     }
 
     render(){
+        console.log(process.env.PUBLIC_URL)
         return (
             <div className="login-container">
-                <div className="logo-container">   
-                </div>
                 <div className="child">
+                    <img className="logo" src={process.env.PUBLIC_URL + '/assets/images/salvus-logo-svg.svg'} alt="salvus logo"/> 
+                    <div className="introduction-div">
+                        <h1 className="text-title">
+                            Bem Vindo
+                        </h1>
+                        <h2 className="text-subtitle">
+                            Trabalhando por um sistema de saúde mais eficiente e de qualidade para todos.   
+                        </h2>
+                        <h3 className="text-txt-1">
+                            Faça parte dessa rede de profissionais para que
+                            juntos possamos melhorar o cuidado, satisfação e
+                            qualidade de vida de quem mais precisa.
+                        </h3>
+                        <h4 className="text-txt-2">
+                            Através do sistema de suporte da Salvus podemos
+                            redirecionar profissionais qualificados em diferentes
+                            localidades do país, de forma rápida e segura.
+                        </h4>
+                    </div>
                     <label className="member-login">Salvus Login</label>
                     <div className="login-div">
                         <input className="input-user" type="text" name="login" value={this.state.login} onChange={this.onChange} placeholder = "User" required/>
@@ -63,10 +81,10 @@ export default class SignIn extends Component {
 						</a>
 					</div>
                     
-                    <div class="text-center c-a">
-						<a class="txt2" href="#">
+                    <div className="text-center c-a">
+						<a className="txt2" href="/SignUp">
 							Create your Account
-							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+							<i className    ="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>
 					</div>
                 </div>

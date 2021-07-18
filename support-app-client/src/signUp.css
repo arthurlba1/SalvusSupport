@@ -1,0 +1,285 @@
+.register-container{
+    background-image: linear-gradient(to right, #207567, #358873, #4E9C81, #6BAF92);
+    background-repeat: no-repeat;
+    background-size:100%;
+    bottom: 0;
+    color: black;
+    left: 0;
+    overflow: auto;
+    padding: 3em;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    background-size: cover;
+}
+
+.register {
+    padding: 200px;
+    padding-left: 500px;
+    padding-right: 500px;
+}
+
+.register-div {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    margin-bottom: 10px;
+    transform: translate(0%, 65% )
+}
+.input-reg, .input-email, .input-password, .input-fullname, .input-birthdate, .input-gender, .input-tel, .input-profession, .input-regnumber, .input-spec, .input-displacement {
+    font-family: Poppins-Medium;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #666666;
+  
+    display: block;
+    width: 230px;
+    background: #e6e6e6;
+    height: 50px;
+    border-radius: 25px;
+    padding: 0 30px 0 68px;
+}
+
+.input-reg:focus + .focus-input {
+    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+    animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+.input-fullname:focus + .focus-input {
+    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+    animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+.input-email:focus + .focus-input {
+    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+    animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+.input-password:focus + .focus-input {
+    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+    animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+.input-birthdate:focus + .focus-input {
+    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+    animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+.input-gender:focus + .focus-input {
+    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+    animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+.input-tel:focus + .focus-input {
+    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+    animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+.input-profession:focus + .focus-input {
+    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+    animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+.input-regnumber:focus + .focus-input {
+    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+    animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+.input-spec:focus + .focus-input {
+    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+    animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+.input-displacement:focus + .focus-input {
+    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+    animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+.input-reg:focus + .focus-input + .symbol-input {
+    color: #57b846;
+    padding-left: 28px;
+}
+
+.input-fullname:focus + .focus-input + .symbol-input {
+    color: #57b846;
+    padding-left: 28px;
+}
+
+.input-email:focus + .focus-input + .symbol-input {
+    color: #57b846;
+    padding-left: 28px;
+}
+
+.input-password:focus + .focus-input + .symbol-input {
+    color: #57b846;
+    padding-left: 28px;
+}
+
+.input-birthdate:focus + .focus-input + .symbol-input {
+    color: #57b846;
+    padding-left: 28px;
+}
+
+.input-gender:focus + .focus-input + .symbol-input {
+    color: #57b846;
+    padding-left: 28px;
+}
+
+.input-tel:focus + .focus-input + .symbol-input {
+    color: #57b846;
+    padding-left: 28px;
+}
+
+.input-profession:focus + .focus-input + .symbol-input {
+    color: #57b846;
+    padding-left: 28px;
+}
+
+.input-regnumber:focus + .focus-input + .symbol-input {
+    color: #57b846;
+    padding-left: 28px;
+}
+
+.input-spec:focus + .focus-input + .symbol-input {
+    color: #57b846;
+    padding-left: 28px;
+}
+
+.input-displacement:focus + .focus-input + .symbol-input {
+    color: #57b846;
+    padding-left: 28px;
+}
+
+.member-register {
+    font-family: Poppins-Bold;
+    font-size: 24px;
+    color: #333333;
+    line-height: 1.2;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    transform: translate(0%, -15% );
+    justify-content: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+  
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+  
+}
+  
+  .member-register:hover{
+    color: #57b846;
+  }
+
+.container-next-button{
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 15px;
+}
+  
+.next-button {
+    font-family: Montserrat-Bold;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #fff;
+    text-transform: uppercase;
+    transform: translate(150%, 55%);
+  
+    width: 25%;
+    height: 50px;
+    border-radius: 25px;
+    border: none;
+    background: #57b846;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 px;
+  
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+  
+.next-button:hover {
+    background: #333333;
+}
+
+.arrow-right {
+    transform: translate(740px, 136px);
+    color: black; /* white color */
+}
+
+.next-button:hover + .focus-input + .symbol-input {
+    color: #57b846;
+}
+
+.container-prev-button{
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 15px;
+}
+
+.prev-button {
+    font-family: Montserrat-Bold;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #fff;
+    text-transform: uppercase;
+    transform: translate(-150%, -77%);
+  
+    width: 25%;
+    height: 50px;
+    border-radius: 25px;
+    border: none;
+    background: #57b846;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 px;
+  
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.prev-button:hover {
+    background: #333333;
+}
+
+.arrow-left {
+    transform: translate(490px, 136px);
+    color: black; /* white color */
+}
+
+.prev-button:hover + .focus-input + .symbol-input {
+    color: #57b846;
+}

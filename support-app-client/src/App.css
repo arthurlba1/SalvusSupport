@@ -1,39 +1,39 @@
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
-@font-face {
+ @font-face {
   font-family: Poppins-Regular;
-  src: url('assets/fonts/poppins/Poppins-Regular.ttf'); 
+  src: url("fonts/poppins/Poppins-Regular.ttf"); 
 }
 
 @font-face {
   font-family: Poppins-Bold;
-  src: url('assets/fonts/poppins/Poppins-Bold.ttf'); 
+  src: url('fonts/poppins/Poppins-Bold.ttf'); 
 }
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url('assets/fonts/poppins/Poppins-Medium.ttf'); 
+  src: url('fonts/poppins/Poppins-Medium.ttf'); 
 }
 
 @font-face {
   font-family: Montserrat-Bold;
-  src: url('assets/fonts/montserrat/Montserrat-Bold.ttf'); 
+  src: url('fonts/montserrat/Montserrat-Bold.ttf'); 
 }
 
 @font-face {
   font-family: font-awesome;
-  src: url('assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css');
-}
+  src: url('fonts/font-awesome-4.7.0/css/font-awesome.min.css');
+} 
 /*/////////////////////////////////////////////////////////////////*/
 
 .body{
   position: relative;
 }
 
-input{
+input, select{
   outline: none;
-	border: #666666;
+	border: none;
 }
 
 textarea:focus, input:focus, select:focus{
@@ -81,13 +81,18 @@ ul, li {
 	margin: 0px;
 	list-style-type: none;
 }
-.logo-container{
-  background-repeat: no-repeat;
-  background-size:100%;
-  overflow: auto;
+
+.logo {
+  width: 200px;
+  transform: translate(-260%, 40px);
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
 }
 .login-container{
-  background-image: url('assets/images/background.jpg');
+  background-image: linear-gradient(to right, #207567, #358873, #4E9C81, #6BAF92);
   background-repeat: no-repeat;
   background-size:100%;
   bottom: 0;
@@ -104,9 +109,9 @@ ul, li {
 
 .child{
   background-color: white;
-  padding: 275px;
-  padding-left: 540px;
-  padding-right: 540px;
+  padding: 15px;
+  padding-left: 490px;
+  padding-right: 490px;
   border-radius: 20px;
   position: absolute;
   top: 50%;
@@ -114,6 +119,40 @@ ul, li {
   transform: translate(-50%, -50%);
 }
 
+
+.text-title {
+  font-family: Poppins-Bold;
+  font-size: 30px;
+	line-height: 1.7;
+  color: #4DA243;
+  transform: translate(-142%, 150%);
+  
+}
+
+.text-subtitle {
+  font-family: Poppins-Medium;
+  font-size: 17px;
+  line-height: 1.7;
+  text-align: start;
+  color: #4DA243;
+  transform: translate(-137%, 135%);
+}
+
+.text-txt-1 {
+  font-family: Poppins-Regular;
+  color: #666666;
+  font-size: 14px;
+  text-align: start;
+  transform: translate(-137%, 165%);
+}
+
+.text-txt-2 {
+  font-family: Poppins-Regular;
+  color: #666666;
+  font-size: 14px;
+  text-align: start;
+  transform: translate(-137%, 175%);
+}
 .member-login{
   font-family: Poppins-Bold;
   font-size: 24px;
@@ -122,7 +161,7 @@ ul, li {
   text-align: center;
   width: 100%;
   display: flex;
-  transform: translate(130%, -125%);
+  transform: translate(130%, -200px);
   justify-content: center;
   align-items: center;
 
@@ -138,7 +177,8 @@ ul, li {
 
 }
 
-.fa:hover{
+
+.member-login:hover{
   color: #57b846;
 }
 
@@ -147,7 +187,7 @@ ul, li {
   width: 100%;
   z-index: 1;
   margin-bottom: 10px;
-  transform: translate(130%, 50%)
+  transform: translate(130%, -149px)
 }
 
 .input-user, .input-pass{
@@ -163,11 +203,6 @@ ul, li {
   border-radius: 25px;
   padding: 0 30px 0 68px;
 }
-.input-user:hover, .input-pass:hover{
-  -webkit-box-shadow:inset 0px 0px 0px 0.5px #666666;
-  -moz-box-shadow:inset 0px 0px 0px 0.5px #666666;
-  box-shadow:inset 0px 0px 0px 0.5px #666666;
-}
 .focus-input {
   display: block;
   position: absolute;
@@ -181,7 +216,12 @@ ul, li {
   color: rgba(87,184,70, 0.8);
 }
 
-.input:focus + .focus-input {
+.input-user:focus + .focus-input {
+  -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+  animation: anim-shadow 0.5s ease-in-out forwards;
+}
+
+.input-pass:focus + .focus-input {
   -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
   animation: anim-shadow 0.5s ease-in-out forwards;
 }
@@ -213,7 +253,7 @@ ul, li {
   border-radius: 25px;
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: 10%;
   height: 100%;
   padding-left: 35px;
   pointer-events: none;
@@ -225,7 +265,12 @@ ul, li {
   transition: all 0.4s;
 }
 
-.input:focus + .focus-input + .symbol-input {
+.input-user:focus + .focus-input + .symbol-input {
+  color: #57b846;
+  padding-left: 28px;
+}
+
+.input-pass:focus + .focus-input + .symbol-input {
   color: #57b846;
   padding-left: 28px;
 }
@@ -249,7 +294,7 @@ ul, li {
   line-height: 1.5;
   color: #fff;
   text-transform: uppercase;
-  transform: translate(130%, 105%);
+  transform: translate(130%, -137px);
 
   width: 100%;
   height: 50px;
@@ -276,7 +321,7 @@ ul, li {
 }
 
 .text-center{
-  transform: translate(130%, 330%);
+  transform: translate(130%,-125px);
 }
 .txt1 {
   font-family: Poppins-Regular;
@@ -293,7 +338,7 @@ ul, li {
 }
 
 .c-a{
-  transform: translate(130%, 230px);
+  transform: translate(130%, 0px);
 }
 
 
