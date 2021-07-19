@@ -3,8 +3,8 @@
 
  @font-face {
   font-family: Poppins-Regular;
-  src: url("fonts/poppins/Poppins-Regular.ttf"); 
-}
+  src: url('fonts/poppins/Poppins-Regular.ttf'); 
+} 
 
 @font-face {
   font-family: Poppins-Bold;
@@ -120,111 +120,6 @@ ul, li {
 }
 
 
-.text-title {
-  font-family: Poppins-Bold;
-  font-size: 30px;
-	line-height: 1.7;
-  color: #4DA243;
-  transform: translate(-142%, 150%);
-  
-}
-
-.text-subtitle {
-  font-family: Poppins-Medium;
-  font-size: 17px;
-  line-height: 1.7;
-  text-align: start;
-  color: #4DA243;
-  transform: translate(-137%, 135%);
-}
-
-.text-txt-1 {
-  font-family: Poppins-Regular;
-  color: #666666;
-  font-size: 14px;
-  text-align: start;
-  transform: translate(-137%, 165%);
-}
-
-.text-txt-2 {
-  font-family: Poppins-Regular;
-  color: #666666;
-  font-size: 14px;
-  text-align: start;
-  transform: translate(-137%, 175%);
-}
-.member-login{
-  font-family: Poppins-Bold;
-  font-size: 24px;
-  color: #333333;
-  line-height: 1.2;
-  text-align: center;
-  width: 100%;
-  display: flex;
-  transform: translate(130%, -200px);
-  justify-content: center;
-  align-items: center;
-
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-
-  -webkit-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  transition: all 0.5s;
-
-}
-
-
-.member-login:hover{
-  color: #57b846;
-}
-
-.login-div{
-  position: relative;
-  width: 100%;
-  z-index: 1;
-  margin-bottom: 10px;
-  transform: translate(130%, -149px)
-}
-
-.input-user, .input-pass{
-  font-family: Poppins-Medium;
-  font-size: 15px;
-  line-height: 1.5;
-  color: #666666;
-
-  display: block;
-  width: 230px;
-  background: #e6e6e6;
-  height: 50px;
-  border-radius: 25px;
-  padding: 0 30px 0 68px;
-}
-.focus-input {
-  display: block;
-  position: absolute;
-  border-radius: 25px;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  box-shadow: 0px 0px 0px 0px;
-  color: rgba(87,184,70, 0.8);
-}
-
-.input-user:focus + .focus-input {
-  -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
-  animation: anim-shadow 0.5s ease-in-out forwards;
-}
-
-.input-pass:focus + .focus-input {
-  -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
-  animation: anim-shadow 0.5s ease-in-out forwards;
-}
 
 @-webkit-keyframes anim-shadow {
   to {

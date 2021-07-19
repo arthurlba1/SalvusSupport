@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import methods from './../../service.js';
 import './../../App.css';
+import './../../css/signIn.css';
 
 
 const INITIAL_STATE = {

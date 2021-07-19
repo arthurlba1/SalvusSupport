@@ -15,9 +15,9 @@
 }
 
 .register {
-    padding: 200px;
-    padding-left: 500px;
-    padding-right: 500px;
+    padding: 105px;
+    padding-left: 425px;
+    padding-right: 425px;
 }
 
 .register-div {
@@ -27,12 +27,73 @@
     margin-bottom: 10px;
     transform: translate(0%, 65% )
 }
-.input-reg, .input-email, .input-password, .input-fullname, .input-birthdate, .input-gender, .input-tel, .input-profession, .input-regnumber, .input-spec, .input-displacement {
+
+.steps-div {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 15px;
+}
+
+.step-button {
+    font-family: Montserrat-Bold;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #fff;
+    text-transform: uppercase;
+  
+    width: 14%;
+    height: 45px;
+    border-radius: 45px;
+    border: none;
+    background: #57b846;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 px;
+  
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.step-button:hover {
+    background: #333333;
+}
+
+.sb1 {
+    transform: translate(-350%, -100%);
+
+}
+
+.sb2 {
+    transform: translate(-125%, -100%);
+}
+
+.sb3 {
+    transform: translate(125%, -100%);
+}
+
+.sb4 {
+    transform: translate(350%, -100%);
+}
+
+.input-reg, .input-email, .input-password, .input-fullname, .input-birthdate, .input-gender, .input-tel, .input-profession, .input-regnumber, .input-spec, .input-displacement, .input-file {
     font-family: Poppins-Medium;
     font-size: 15px;
     line-height: 1.5;
     color: #666666;
-  
+    
     display: block;
     width: 230px;
     background: #e6e6e6;
@@ -66,27 +127,12 @@
     animation: anim-shadow 0.5s ease-in-out forwards;
 }
 
-.input-gender:focus + .focus-input {
-    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
-    animation: anim-shadow 0.5s ease-in-out forwards;
-}
-
 .input-tel:focus + .focus-input {
     -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
     animation: anim-shadow 0.5s ease-in-out forwards;
 }
 
-.input-profession:focus + .focus-input {
-    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
-    animation: anim-shadow 0.5s ease-in-out forwards;
-}
-
 .input-regnumber:focus + .focus-input {
-    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
-    animation: anim-shadow 0.5s ease-in-out forwards;
-}
-
-.input-spec:focus + .focus-input {
     -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
     animation: anim-shadow 0.5s ease-in-out forwards;
 }
@@ -121,27 +167,12 @@
     padding-left: 28px;
 }
 
-.input-gender:focus + .focus-input + .symbol-input {
-    color: #57b846;
-    padding-left: 28px;
-}
-
 .input-tel:focus + .focus-input + .symbol-input {
     color: #57b846;
     padding-left: 28px;
 }
 
-.input-profession:focus + .focus-input + .symbol-input {
-    color: #57b846;
-    padding-left: 28px;
-}
-
 .input-regnumber:focus + .focus-input + .symbol-input {
-    color: #57b846;
-    padding-left: 28px;
-}
-
-.input-spec:focus + .focus-input + .symbol-input {
     color: #57b846;
     padding-left: 28px;
 }
@@ -223,8 +254,8 @@
 }
 
 .arrow-right {
-    transform: translate(740px, 136px);
-    color: black; /* white color */
+    transform: translate(666px, 168px);
+    color: white;
 }
 
 .next-button:hover + .focus-input + .symbol-input {
@@ -276,10 +307,46 @@
 }
 
 .arrow-left {
-    transform: translate(490px, 136px);
-    color: black; /* white color */
+    transform: translate(415px, 168px);
+    color: white;
 }
 
 .prev-button:hover + .focus-input + .symbol-input {
     color: #57b846;
+}
+
+.register-multi {
+    position: inherit;
+    width: 100%;
+    z-index: 1;
+    margin-bottom: 10px;
+    transform: translate(0%, 65% )
+}
+
+.space-div {
+    padding-bottom: 59px;
+    transform: translate(0px, 35px);
+    z-index: -1;
+}
+
+.bar-div {
+    transform: translate(-10%, -55%);
+    width: 130%;
+    height: 8px;
+    background-color: #e6e6e6;
+    z-index: -1;
+    
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.active {
+    background: linear-gradient(#57b846);
+}
+
+.focus {
+    background: #636363;
+    
 }

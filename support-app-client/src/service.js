@@ -15,7 +15,7 @@ const methods = {
     },
     getProf: () => {
         return fetch('http://localhost:3001/getProf', {headers: headers.headers,method: "GET"})
-    }
+    },
 }
 
 export default methods;
