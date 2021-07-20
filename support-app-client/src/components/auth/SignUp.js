@@ -3,7 +3,6 @@ import Select from 'react-select'
 import methods from './../../service.js';
 import Util from '../../commons/Utils.js';
 import InputMask from "react-input-mask";
-import Dropzone from "react-dropzone-uploader";
 import './../../css/signUp.css';
 import './../../App.css';
 
@@ -26,7 +25,9 @@ const INITIAL_STATE = {
     dataProf: [],
     dataSpec: [],
     validEmail: false,
-    selectedFile: null,
+    previewAvatar: null,
+    docs: [],
+
   };
 
 const genders = [
@@ -151,35 +152,51 @@ export default class SignUp extends Component {
         this.setState({...this.state, step: value});
     }
     submitUser = event =>{
-        let User = {
-            email: this.state.email,
-            password: this.state.password,
-            user: this.state.user,
-            name: this.state.name,
-            birthDate: this.state.birthDate,
-            gender: this.state.gender,
-            telephone: this.state.telephone,
-            profission: this.state.profission,
-            regNumber: this.state.regNumber,
-            speciality: this.state.speciality,
-            location:this.state.location,
-            displacement: this.state.displacement,
-            avatar: null,
-        }
+        let User = new FormData() 
+        
+        User.append("email", this.state.email)
+        User.append("password", this.state.password)
+        User.append("user", this.state.user)
+        User.append("name", this.state.name)
+        User.append("birthDate", this.state.birthDate)
+        User.append("gender", this.state.gender)
+        User.append("telephone", this.state.telephone)
+        User.append("profission", this.state.profission)
+        User.append("regNumber", this.state.regNumber)
+        User.append("speciality", this.state.speciality)
+        User.append("location", this.state.location)
+        User.append("displacement", this.state.displacement)
+        User.append("avatar", this.state.avatar)
+        
         methods.createUser(User).then(res => {
             console.log(res)
         });
     }
-    fileSelectedHandler = event => {
-        this.setState({...this.state, selectedFile: event.target.files[0]})
+    avatarSelectedHandler = event => {
+        this.setState({...this.state, avatar: event.target.files[0], previewAvatar: URL.createObjectURL(event.target.files[0])});
     }
-    fileUploadHandler = event => {
-        console.log(event);
+    docsSelectedHandler = event => {
+        let docs = this.state.docs;
+        docs.push(event.target.files[0]);
+        this.setState({...this.state, docs:docs});
     }
-    
+    removeDoc(name){
+        let docs = this.state.docs;
+        docs = docs.filter(e => {
+            return e.name !== name
+        }) 
+        this.setState({...this.state, docs:docs});
+    }
+    docsList(docs) {
+        let data = (docs.map(item =>(<li className="li-docs" id="item.name">{item.name}<span className="span-docs" style={{color:"#red", cursor: "pointer"}} onClick={this.removeDoc.bind(this, item.name)}>x</span></li>)))
+        return data
+        
+    }
+
     formState = () => {
         if(this.state.step === 1){
             return (
+            <form>    
                 <div>
                     <div className="register-div">
                         <input className="input-reg" type="text" value={this.state.user} name="user" placeholder="User" onChange={this.onChange}/>
@@ -190,7 +207,7 @@ export default class SignUp extends Component {
                     </div>
 
                     <div className="register-div">
-                        <input className="input-fullname" type="text" value={this.state.name} name="name" placeholder="Full Name" onChange={this.onChange}/>
+                        <input className="input-fullname" type="text" value={this.state.name} name="name" placeholder="Full Name" onChange={this.onChange} />
                         <span className="focus-input"></span>
                         <span className="symbol-input ">
                             <i class="fa fa-font" aria-hidden="true"></i>
@@ -198,7 +215,7 @@ export default class SignUp extends Component {
                     </div>
 
                     <div className="register-div">
-                        <input className="input-email" type="text" value={this.state.email} name="email" placeholder="E-mail" onChange={this.onChangeEmail}/>
+                        <input className="input-email" type="text" value={this.state.email} name="email" placeholder="E-mail" onChange={this.onChangeEmail} />
                         {!this.state.validEmail}
                         <span className="focus-input"></span>
                         <span className="symbol-input ">
@@ -207,20 +224,21 @@ export default class SignUp extends Component {
                     </div>
 
                     <div className="register-div">
-                        <input className="input-password" type="password" value={this.state.password} name="password" placeholder="Password" onChange={this.onChange}/>
+                        <input className="input-password" type="password" value={this.state.password} name="password" placeholder="Password" onChange={this.onChange} />
                         <span className="focus-input"></span>
                         <span className="symbol-input">
                             <i className="fa fa-lock"  aria-hidden="true"></i>
                         </span>
                     </div>
-
                     </div>
+                </form>
             )
         } else if(this.state.step === 2) {
             return (
+            <form>
                 <div>
                     <div className="register-div">
-                        <input className="input-birthdate" type="date" value={this.state.birthDate} name="birthDate" placeholder="Birth Date" onChange={this.onChange}/>
+                        <input className="input-birthdate" type="date" value={this.state.birthDate} name="birthDate" placeholder="Birth Date" onChange={this.onChange} />
                         <span className="focus-input"></span>
                         <span className="symbol-input">
                             <i class="fa fa-calendar-o" aria-hidden="true"></i>
@@ -228,7 +246,7 @@ export default class SignUp extends Component {
                     </div>
 
                     <div className="register-div">
-                        <InputMask className="input-tel" mask="(99)99999-9999" value={this.state.telephone} name="telephone" placeholder="Telephone" onChange={this.onChange}/>
+                        <InputMask className="input-tel" mask="(99)99999-9999" value={this.state.telephone} name="telephone" placeholder="Telephone" onChange={this.onChange} />
                         <span className="focus-input"></span>
                         <span className="symbol-input">
                             <i class="fa fa-phone" aria-hidden="true"></i>
@@ -236,7 +254,7 @@ export default class SignUp extends Component {
                     </div>   
 
                     <div className="register-div">
-                        <Select className="input-gender" styles={selectStyle} name="gender" placeholder="Gender" onChange={this.onChangeGender} options={genders}/>
+                        <Select className="input-gender" styles={selectStyle} name="gender" placeholder="Gender" onChange={this.onChangeGender} options={genders} />
                         <span className="focus-input"></span>
                         <span className="symbol-input">
                             <i class="fa fa-mars" aria-hidden="true"></i>
@@ -246,16 +264,18 @@ export default class SignUp extends Component {
                     <div className="space-div"/>
 
                 </div>
+            </form>
             )
         } else if(this.state.step === 3) {
             return (
+            <form>
                 <div>
                     <div className="register-div">
                         <Select className="input-profession" name="profission" placeholder="Profession" onChange={this.onProfChanged} options={this.state.dataProf}
                         menuPortalTarget={document.body}
                         menuPosition={'fixed'}
                         styles={selectStyle}
-                        />
+                        required/>
                         <span className="focus-input"></span>
                         <span className="symbol-input">
                             <i class="fa fa-address-card" aria-hidden="true"></i>
@@ -263,7 +283,7 @@ export default class SignUp extends Component {
                     </div>
                     
                     <div className="register-div">
-                        <input className="input-displacement" type="text" value={this.state.displacement} name="displacement" placeholder="Displacement" onChange={this.onChange}/>
+                        <input className="input-displacement" type="text" value={this.state.displacement} name="displacement" placeholder="Displacement" onChange={this.onChange} />
                         <span className="focus-input"></span>
                         <span className="symbol-input">
                             <i class="fa fa-car" aria-hidden="true"></i>
@@ -271,7 +291,7 @@ export default class SignUp extends Component {
                     </div>
 
                     <div className="register-div">
-                        <input className="input-regnumber" type="text" value={this.state.regNumber} name="regNumber" placeholder="Register Number" onChange={this.onChange}/>
+                        <input className="input-regnumber" type="text" value={this.state.regNumber} name="regNumber" placeholder="Register Number" onChange={this.onChange} />
                         <span className="focus-input"></span>
                         <span className="symbol-input">
                             <i class="fa fa-id-card" aria-hidden="true"></i>
@@ -285,7 +305,7 @@ export default class SignUp extends Component {
                         multiValueLabel
                         multiValue={document.body}
                         styles={selectStyle} 
-                        />
+                        required/>
                         <span className="focus-input"></span>
                         <span className="symbol-input">
                             <i class="fa fa-list-alt" aria-hidden="true"></i>
@@ -293,22 +313,22 @@ export default class SignUp extends Component {
                     </div>
 
                 </div>
+            </form>
             )
         }else if(this.state.step === 4){
             return (
-                <div className="register-div">
-                    <Dropzone
-                    getUploadParams={/*getUploadParams*/}
-                    onSubmit={/*handleSubmit*/}
-                    accept="image/*"
-                    maxFiles={1}
-                    multiple={false}
-                    styles={{
-                        dropzone: { minHeight: 200, maxHeight: 250 }
-                    }}
-                    />
-                    <input className="input-file" type="file" onChange={this.fileSelectedHandler}/> 
-                    <button onClick={this.fileUploadHandler}>Upload</button>
+                <div>
+                    <label for="avatar" className="input-avatar">Avatar
+                    <input  className="avatar-input" id="avatar" type="file" name="image" accept="image/*" multiple="false" onChange={this.avatarSelectedHandler}/> 
+                    <img className="avatar-preview" src={this.state.previewAvatar}/>
+                    </label>
+                    <label for="file" className="input-file">Documents and Certificates
+                    <input className="file-input" type="file" name='files[]' id="file" multiple="false"  accept="application/pdf,application/vnd.ms-excel" onChange={this.docsSelectedHandler}/>
+                    </label>
+                    <ul className="docs-div">
+                        {this.docsList(this.state.docs)}
+                    </ul>
+                    
                 </div>
             )
         }
@@ -320,31 +340,29 @@ export default class SignUp extends Component {
                 <div className="child register">
                 <div className = "bar-div"/>
                     <div className="steps-div">
-                        <button className={this.state.step === 1 ?  "step-button sb1 focus" : "step-button sb1 "} value={1} name="step1" onClick={this.submitButtonProgress}>1</button>
-                        <button className={this.state.step === 2 ? "step-button sb2 focus" : "step-button sb2 "}  value= {2} name="step1" onClick={this.submitButtonProgress}>2</button>
-                        <button className={this.state.step === 3 ? "step-button sb3 focus" : "step-button sb3 "}  value = {3}name="step1" onClick={this.submitButtonProgress}>3</button>
-                        <button className={this.state.step === 4 ? "step-button sb4 focus" : "step-button sb4 "}  value = {4} name="step1" onClick={this.submitButtonProgress}>4</button>
+                        <button className={this.state.step === 1 ?  "step-button sb1 focus" : "step-button sb1 "} value={1} name="step" onClick={this.submitButtonProgress}>1</button>
+                        <button className={this.state.step === 2 ? "step-button sb2 focus" : "step-button sb2 "}  value= {2} name="step" onClick={this.submitButtonProgress}>2</button>
+                        <button className={this.state.step === 3 ? "step-button sb3 focus" : "step-button sb3 "}  value = {3}name="step" onClick={this.submitButtonProgress}>3</button>
+                        <button className={this.state.step === 4 ? "step-button sb4 focus" : "step-button sb4 "}  value = {4} name="step" onClick={this.submitButtonProgress}>4</button>
                     </div>
                     <label className="member-register">Register Form</label>
                         {this.formState()}
                         <div className="container-next-button">
-                            <button className="next-button" name="step" onClick={this.submitNext}/>
+                            <button className="next-button" name="step" type="submit" onClick={this.state.step === 4 ? this.submitUser : this.submitNext}/>
                             <span className="focus-input"></span>
                             <span className="symbol-input">
-                                <i className="fa fa-2x fa-arrow-right arrow-right"  aria-hidden="true"></i>
+                                <i className={this.state.step === 4 ? "fa fa-2x fa-arrow-right arrow-right b5" : "fa fa-2x fa-arrow-right arrow-right"}  aria-hidden="true"></i>
                             </span>
                         </div>
                         <div className="container-prev-button">
                             <button className="prev-button" name="step" onClick={this.submitPrevious}/>
                             <span className="focus-input"></span>
                             <span className="symbol-input">
-                                <i className="fa fa-2x fa-arrow-left arrow-left"  aria-hidden="true"></i>
+                                <i className={this.state.step === 4 ? "fa fa-2x fa-arrow-left arrow-left b4" : "fa fa-2x fa-arrow-left arrow-left"} aria-hidden="true"></i>
                             </span>
                         </div>
                 </div>
             </div>
-            
             );
     }
-
 }

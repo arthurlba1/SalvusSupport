@@ -1,11 +1,11 @@
-
- const headers = {
+const axios = require('axios')
+const headers = {
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
 };
 
 const methods = {
     createUser: (user) =>{
-        return fetch('http://localhost:3001/createUser', {headers: headers.headers, body: JSON.stringify(user), method: "POST"})
+        return axios.post('http://localhost:3001/createUser', user)
     },
     loginUser: (login) =>{
         return fetch('http://localhost:3001/loginUser', {headers: headers.headers, body: JSON.stringify(login), method: "POST"})

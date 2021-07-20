@@ -88,7 +88,7 @@
     transform: translate(350%, -100%);
 }
 
-.input-reg, .input-email, .input-password, .input-fullname, .input-birthdate, .input-gender, .input-tel, .input-profession, .input-regnumber, .input-spec, .input-displacement, .input-file {
+.input-reg, .input-email, .input-password, .input-fullname, .input-birthdate, .input-gender, .input-tel, .input-profession, .input-regnumber, .input-spec, .input-displacement {
     font-family: Poppins-Medium;
     font-size: 15px;
     line-height: 1.5;
@@ -349,4 +349,104 @@
 .focus {
     background: #636363;
     
+}
+
+.input-avatar {
+    font-family: Poppins-Medium;
+    font-size: 15px;
+    line-height: 5.5;
+    color: #666666;
+    text-align: center;
+    
+    display: block;
+    width: 80px;
+    background: #e6e6e6;
+    height: 80px;
+    border-radius: 75px;
+    padding: 0 0px 0 0px;
+    cursor: pointer;
+    transform: translate(120px,5px);
+    transition: 0.8s;
+}
+
+.avatar-preview {
+    width: 80px;
+    height: 80px;
+    border-radius: 65px;
+    position: absolute;
+    transform: translate(-66px, 0px);
+    
+}
+
+.avatar-input {
+    transform: translate(68px, -194px);
+    width: 120px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.file-input {
+    transform: translate(-38px, -50px);
+    width: 270px;
+}
+
+.input-file {
+    font-family: Poppins-Medium;
+    font-size: 15px;
+    line-height: 3.3;
+    color: #666666;
+    text-align: initial;
+    cursor: pointer;
+    
+    display: block;
+    width: 230px;
+    background: #e6e6e6;
+    height: 50px;
+    border-radius: 25px;
+    padding: 0 30px 0 68px;
+    transform: translate(0px, 20px);
+    transition: 0.8s;
+}
+
+.input-avatar:hover, .input-file:hover {
+    color: white;
+    background: #333333;
+}
+
+.docs-div {
+    font-family: Poppins-Medium;
+    font-size: 12px;
+
+    width: 284px;
+    height: 140px;
+    transform: translate(0px, 20px);
+}
+
+.span-docs {
+    position: inherit;
+    transition: 0.8s;
+    font-size: 17px;
+    color: rgb(156, 17, 17);
+}
+
+.span-docs:hover {
+    color: #57b846;
+}
+
+.li-docs {
+    transform: translate(-40px, 0px);
+    color:#333333;
+    width: 324px;
+    height: 40px;
+    overflow: inherit;
+}
+
+.b4 {
+    transform: translate(415px, 183px);
+}
+
+.b5 {
+    transform: translate(666px, 183px);
 }

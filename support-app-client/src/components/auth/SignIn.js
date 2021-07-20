@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import methods from './../../service.js';
+import { createBrowserHistory } from 'history';
 import './../../App.css';
 import './../../css/signIn.css';
-
 
 const INITIAL_STATE = {
     login: '',
     password: ''
 }
+const history = createBrowserHistory();
 export default class SignIn extends Component {
 
+   
     constructor(props) {
         super(props);    
         this.state = INITIAL_STATE;
+        this.history = history;
     }
     onChange = event => {
+        
         this.setState({ [event.target.name]: event.target.value });
     };
     loginUser = event =>{
@@ -22,16 +26,24 @@ export default class SignIn extends Component {
             login: this.state.login,
             password: this.state.password
         }
+        
         methods.loginUser(User).then(res => {
             res.json().then(data=>{
-                console.log(data)
+                if(data.error){
+                    ///
+                }else{
+                    localStorage.setItem("user_data", JSON.stringify(data));
+                    
+                    this.history.push('/Dashboard');
+                    history.go()
+                }        
             })
         });
     }
 
     render(){
-        console.log(process.env.PUBLIC_URL)
         return (
+        <form>
             <div className="login-container">
                 <div className="child">
                     <img className="logo" src={process.env.PUBLIC_URL + '/assets/images/salvus-logo-svg.svg'} alt="salvus logo"/> 
@@ -71,7 +83,7 @@ export default class SignIn extends Component {
 						</span>
                     </div>
                     <div className="container-login-button">
-                        <button className="login-button" onClick={this.loginUser}>Login</button>
+                        <button className="login-button" type="submit" onClick={this.loginUser}>Login</button>
                     </div> 
                     <div className="text-center">
 						<span class="txt1">
@@ -90,6 +102,7 @@ export default class SignIn extends Component {
 					</div>
                 </div>
             </div>
+        </form>
         )
     }
 

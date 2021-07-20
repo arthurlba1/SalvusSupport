@@ -103,3 +103,7 @@
     -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
     animation: anim-shadow 0.5s ease-in-out forwards;
   }
+  
+  .alert {
+    background-color: #333333;
+  }
