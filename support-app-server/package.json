@@ -11,10 +11,13 @@
   "author": "arthurlba1 <1arthurluiz1@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
     "nodemon": "^2.0.12",
     "pg": "^8.6.0"
   }
