@@ -27,7 +27,7 @@ CREATE TABLE professional_info
 CREATE TABLE users 
 (
 	userId int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,  
-	avatar BYTEA,
+	avatar VARCHAR,
 	full_name VARCHAR NOT NULL,
 	login VARCHAR NOT NULL,
 	email VARCHAR NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE doc_upload
 (
 	doc_id int GENERATED ALWAYS AS IDENTITY,
 	user_id_fk INT NOT NULL,
-	file_content BYTEA NOT NULL,
+	file_content VARCHAR,
 	file_name VARCHAR NOT NULL,
 	CONSTRAINT user_doc FOREIGN KEY (user_id_fk) REFERENCES users(userId) 
 );
