@@ -12,19 +12,26 @@ var salt = bcrypt.genSaltSync(10)
 
 var multer  = require('multer')
 
+
+
+
+
 const { createInflate } = require('zlib');
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
       
-        cb(null, './uploads/');
+            cb(null, './uploads/');
       },
       filename: function(req, file, cb) {
+        bcrypt.genSalt(2).then(name => {
+            
+            cb(null, req.body.user + name.replace('/', '-')+ path.extname(file.originalname));
+        })
         
-        cb(null, "avatar-" + req.body.user+ ".jpg");
       }
 });
 const upload = multer({storage: storage,});
-
+const uploadDocs = multer({dest: 'uploads/'});
 app.use(cors({
     origin: true,
     methods: ["GET", "POST"],
@@ -66,25 +73,41 @@ app.get("/getProfSpec", (req,res) => {
     });
 });
 
-app.post("/createUser", upload.single("avatar"),(req,res) => {
+app.post("/createUser",upload.fields([{name: "avatar", maxCount : 1}, {name: "docs"}]),(req,res) => {
+    
     var data = (req.body);
     var pool = openConnection();
+  
+
     let profQuery = "INSERT INTO professional_info (prof_id_fk, prof_reg_number, prof_number, prof_location, prof_displacement, prof_spec)"
     + "VALUES ($1, $2, $3, $4, $5, $6) RETURNING profid"
-    pool.query(profQuery, [data.profission, data.regNumber, data.telephone, data.location, data.displacement, data.speciality], (errProf, resultProf) => {
-        let userQuery = "INSERT INTO users (avatar, full_name, login, email, pass, gender, birth_date, prof_id_fk) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING userid";
+    
+    pool.query(profQuery, [data.profission, data.regNumber, data.telephone, data.location, data.displacement, data.speciality.split(",")], (errProf, resultProf) => {
+        let userQuery = "INSERT INTO users (avatar, full_name, login, email, pass, gender, birth_date, prof_id_fk) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING userid, avatar";
             if (errProf) {
             console.log(errProf.stack)
+            res.send({error: errProf.message})
             }
     const hashedPassword = bcrypt.hashSync(data.password, salt);
     data.password = hashedPassword;
-    pool.query(userQuery, [req.file.path, data.name, data.user, data.email, hashedPassword, data.gender, data.birthDate, resultProf.rows[0].profid] , (errUser, resultUser) =>{
-        if (errUser) {
-            console.log(errUser.stack)
-        } else {
-            res.send(resultUser)
-        }
-    })
+        pool.query(userQuery, [req.files.avatar[0].path, data.name, data.user, data.email, hashedPassword, data.gender, data.birthDate, resultProf.rows[0].profid] , (errUser, resultUser) =>{
+            if (errUser) {
+                console.log(errUser.stack)
+                res.send({error: errUser.message})
+            } else {
+                let docsQuery = "INSERT INTO doc_upload (user_id_fk, file_content, file_name) VALUES ($1, $2, $3)"
+                req.files.docs.forEach(file => {
+                    pool.query(docsQuery, [resultUser.rows[0].userid, file.path, file.originalname], (errDocs, resultDocs) => {
+                        if(errDocs) {
+                            console.log(errDocs);
+                            res.send({error: errDocs.message})
+                        } 
+                    });
+                });
+                pool.end();
+                res.send({userid: resultUser.rows[0].userid, avatar: resultUser.rows[0].avatar})
+            }
+        })
     })
 });
 
