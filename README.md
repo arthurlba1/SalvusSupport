@@ -7,9 +7,9 @@ This contact with the professional will depend on the distance proposed by him a
 
 ## Technologies used
 Some technologies were used in the project.
--REST
--ReactJS
--Node.js and Express
+- REST
+- ReactJS
+- Node.js and Express
 
 ![flow](./comunication.png)
 
