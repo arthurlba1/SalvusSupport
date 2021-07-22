@@ -11,12 +11,6 @@ const bcrypt = require('bcrypt');
 var salt = bcrypt.genSaltSync(10)
 
 var multer  = require('multer')
-
-
-
-
-
-const { createInflate } = require('zlib');
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
       
@@ -25,7 +19,7 @@ const storage = multer.diskStorage({
       filename: function(req, file, cb) {
         bcrypt.genSalt(2).then(name => {
             
-            cb(null, req.body.user + name.replace('/', '-')+ path.extname(file.originalname));
+            cb(null, req.body.user + name.replace('/', '-').replace('\\', '-')+ path.extname(file.originalname));
         })
         
       }
@@ -83,7 +77,8 @@ app.post("/createUser",upload.fields([{name: "avatar", maxCount : 1}, {name: "do
     + "VALUES ($1, $2, $3, $4, $5, $6) RETURNING profid"
     
     pool.query(profQuery, [data.profission, data.regNumber, data.telephone, data.location, data.displacement, data.speciality.split(",")], (errProf, resultProf) => {
-        let userQuery = "INSERT INTO users (avatar, full_name, login, email, pass, gender, birth_date, prof_id_fk) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING userid, avatar";
+        let userQuery = "INSERT INTO users (avatar, full_name, login, email, pass, gender, birth_date, prof_id_fk) VALUES($1, $2, $3, $4, $5, $6, $7, $8)" 
+        + "RETURNING userid, avatar,full_name, email, gender, birth_date, prof_id_fk";
             if (errProf) {
             console.log(errProf.stack)
             res.send({error: errProf.message})
@@ -95,33 +90,38 @@ app.post("/createUser",upload.fields([{name: "avatar", maxCount : 1}, {name: "do
                 console.log(errUser.stack)
                 res.send({error: errUser.message})
             } else {
-                let docsQuery = "INSERT INTO doc_upload (user_id_fk, file_content, file_name) VALUES ($1, $2, $3)"
+                let docsQuery = "INSERT INTO doc_upload (user_id_fk, file_content, file_name) VALUES ($1, $2, $3) returning file_content"
                 req.files.docs.forEach(file => {
+                    console.log(file.originalname)
                     pool.query(docsQuery, [resultUser.rows[0].userid, file.path, file.originalname], (errDocs, resultDocs) => {
                         if(errDocs) {
                             console.log(errDocs);
                             res.send({error: errDocs.message})
-                        } 
+                        } else{
+                            console.log(resultDocs.rows[0].file_content)
+                        }
                     });
                 });
-                pool.end();
-                res.send({userid: resultUser.rows[0].userid, avatar: resultUser.rows[0].avatar})
+                //pool.end();
+                res.send({userid: resultUser.rows[0].userid, avatar: resultUser.rows[0].avatar, name: resultUser.rows[0].full_name, email: resultUser.rows[0].email, gender: resultUser.rows[0].gender,
+                birth_date: resultUser.rows[0].birth_date, prof_id_fk: resultUser.rows[0].prof_id_fk});
             }
-        })
-    })
+        });
+    });
 });
 
 app.post("/loginUser", (req,res) => {
     var data = (req.body);
     var pool = openConnection();
-    let loginQuery = "SELECT userid, pass, avatar FROM users WHERE login = $1";
+    let loginQuery = "SELECT userid, pass, full_name, avatar, email, gender, birth_date, prof_id_fk FROM users WHERE login = $1";
     pool.query(loginQuery, [data.login], (loginErr, loginResult) => {
         if(loginErr) {
             console.log(loginErr);
         } else if (loginResult.rows[0]) {
             console.log(loginResult.rows[0])
             if(bcrypt.compareSync(data.password, loginResult.rows[0].pass)){
-                res.send({userid: loginResult.rows[0].userid, avatar: loginResult.rows[0].avatar});
+                res.send({userid: loginResult.rows[0].userid, avatar: loginResult.rows[0].avatar, name: loginResult.rows[0].full_name, email: loginResult.rows[0].email, gender: loginResult.rows[0].gender,
+                    birth_date: loginResult.rows[0].birth_date, prof_id_fk: loginResult.rows[0].prof_id_fk, });
             }else{
                 res.send({error: 'Usúario ou Senha incorreto!'});
             }
@@ -132,8 +132,43 @@ app.post("/loginUser", (req,res) => {
     });
 });
 
-app.get("/", express.static(path.join(__dirname, "./public")));
+app.get("/profile/:id", (req, res)=>{
+    var pool = openConnection();
+    var profInfoQuery = "SELECT prof_reg_number, prof_number, prof_displacement, prof_spec, prof_id_fk, prof_name FROM professional_info INNER JOIN profission ON professional_info.prof_id_fk = profission.prof_id WHERE profid = $1";
+    pool.query(profInfoQuery, [req.params.id], (errProfile, profileResult) => {
+        if(errProfile){
+            console.log(errProfile);
+        } else {
+            res.send({regNumber: profileResult.rows[0].prof_reg_number, number: profileResult.rows[0].prof_number, displacement: profileResult.rows[0].prof_displacement, spec: profileResult.rows[0].prof_spec, prof_fk: profileResult.rows[0].prof_id_fk ,profission: profileResult.rows[0].prof_name});
+        }
+    });
+});
 
+app.get("/files/:id", (req, res) => {
+    var pool = openConnection();
+    var userFilesQuery = "SELECT file_content, file_name FROM doc_upload WHERE user_id_fk = $1";
+    pool.query(userFilesQuery, [req.params.id], (errFiles, filesResult) => {
+        if(errFiles) {
+            console.log(errFiles);
+        } else {
+            res.send(filesResult.rows);
+        }
+    });
+});
+
+app.get("/spec/:id", (req, res) => {
+    var pool = openConnection();
+    var specsQuery = "SELECT * FROM speciality WHERE prof_id_fk = $1";
+    pool.query(specsQuery, [req.params.id], (errSpec, specsResult) => {
+        if (errSpec){
+            console.log(errSpec)
+        } else {
+            res.send(specsResult.rows);
+        }
+    });
+});
+
+app.get("/", express.static(path.join(__dirname, "./public")));
 
 app.listen(3001, () => {
  console.log('running on port 3001');
