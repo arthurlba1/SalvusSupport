@@ -25,6 +25,9 @@ const methods = {
     getSpec: (prof_id_fk) => {
         return fetch('http://localhost:3001/spec/' + prof_id_fk, {headers: headers.headers,method: "GET"})
     },
+    getCount: () => {
+        return fetch('http://localhost:3001/getCount', {headers: headers.headers,method: "GET"})
+    },
 }
 
 export default methods;

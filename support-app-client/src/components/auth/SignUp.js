@@ -277,7 +277,6 @@ export default class SignUp extends Component {
                             <i class="fa fa-mars" aria-hidden="true"></i>
                         </span>
                     </div>
-                    
                     <div className="space-div"/>
 
                 </div>
@@ -360,6 +359,7 @@ export default class SignUp extends Component {
         return (
             <div className="register-container 1">
                 <div className="child register">
+                <img className="logo-register" src={process.env.PUBLIC_URL + '/assets/images/salvus-logo-svg.svg'} alt="salvus logo"/> 
                 <div className = "bar-div"/>
                     <div className="steps-div">
                         <button className={this.state.step === 1 ?  "step-button sb1 focus" : "step-button sb1 "} value={1} name="step" onClick={this.submitButtonProgress}>1</button>

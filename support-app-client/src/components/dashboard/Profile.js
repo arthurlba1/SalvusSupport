@@ -33,7 +33,6 @@ export default class Profile extends Component {
                                 return e.specid == element
                             }))
                         });
-                        console.log(data);
                         this.setState({...this.state, displacement: data.displacement, regNumber: data.regNumber, telephone: data.number, profission: data.profission,
                             speciality: data.spec, prof_fk: data.prof_fk, specialityName: aux});
                     })

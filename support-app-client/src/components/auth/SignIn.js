@@ -30,7 +30,7 @@ export default class SignIn extends Component {
         methods.loginUser(User).then(res => {
             res.json().then(data=>{
                 if(data.error){
-                    ///
+                   // Wrong User or Password function
                 }else{
                     localStorage.setItem("user_data", JSON.stringify(data));
                     

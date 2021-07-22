@@ -1,0 +1,74 @@
+.children-2 {
+    background-color: #fff;
+    width: 1515px;
+    height: 975px;
+    position: absolute;
+    transform: translate(340px,-50px);
+
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+}
+
+.dashboard-name {
+    position: absolute;
+    font-family: Poppins-Bold;
+    color: #666666;
+    font-size: 24px;
+    justify-content: center;
+  
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+  
+    transform: translate(-110px, 85px);
+}
+
+.tables {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.tables:hover {
+    background-color: black;
+}
+
+
+.profission-name{
+    font-family: Poppins-Bold;
+    color: #666666;
+    position: relative;
+    font-size: 15px;
+    top: 30px;
+
+    transform: translate(-35px, 45px);
+}
+
+.one {
+    transform: translate(125px, 175px);
+}
+
+.two {
+    transform: translate(1150px, 175px);
+}
+
+.three {
+    transform: translate(125px, 675px);
+}
+
+.four {
+    transform: translate(1150px, 675px);
+}
+
+.recharts-responsive-container{
+    transform: translate(-23px, 235px);
+}

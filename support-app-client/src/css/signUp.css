@@ -450,3 +450,14 @@ input[type="file"] {
 .b5 {
     transform: translate(666px, 183px);
 }
+
+.logo-register{
+    position: absolute;
+    width: 175px;
+    transform: translate(-565px, -85px);
+  
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}

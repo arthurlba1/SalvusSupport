@@ -25,19 +25,6 @@
     display: -ms-flexbox;
 }
 
-.children-2 {
-    background-color: #fff;
-    width: 1515px;
-    height: 975px;
-    position: absolute;
-    transform: translate(340px,-50px);
-
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-}
-
 .log-out{
     font-family: Montserrat-Bold;
     font-size: 15px;
@@ -119,3 +106,14 @@
   transform: translate(-183px, 275px);
 }
 
+.dashboard-logo {
+  position: absolute;
+  width: 120px;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+
+  transform: translate(-170px, 10px);
+}
