@@ -1,5 +1,5 @@
 # Salvus Support
-![banner](support-app-client\public\assets\images\Support-App.png)
+![banner](./Support-App.png)
 
 ## Description
 The objective of the project is to create a CRUD for health professionals, which consists of managing which professional you will ask for support for care.
@@ -11,20 +11,20 @@ Some technologies were used in the project.
 -ReactJS
 -Node.js and Express
 
-![flow](support-app-client\public\assets\images\comunication.png)
+![flow](./comunication.png)
 
 ## Dependencies
 For each technology some dependencies were used.
 .1 Front-End
- -Jest
- -InputMask
- -Select
+- Jest
+- InputMask
+- Select
 
 .2 Back-End
- -Cors
- -pg
- -nodemon
- -bcrypt
- -multer
- -morgan
+- Cors
+- pg
+- nodemon
+- bcrypt
+- multer
+- morgan
 
