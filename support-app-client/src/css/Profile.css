@@ -1,0 +1,115 @@
+
+.user-profission {
+    position: absolute;
+    font-family: Poppins-Medium;
+    color: #666666;
+    font-size: 15px;
+    text-align: center;
+    width: 90%;
+    height: 65px;
+
+    transform: translate(-183px, 310px);
+}
+
+.user-gender {
+    position: absolute;
+    font-family: Poppins-Medium;
+    color: #666666;
+    font-size: 15px;
+    text-align: center;
+    width: 90%;
+    height: 65px;
+
+    transform: translate(-183px, 350px);
+}
+
+.user-email {
+    position: absolute;
+    font-family: Poppins-Medium;
+    color: #666666;
+    font-size: 15px;
+    text-align: center;
+    width: 90%;
+    height: 65px;
+
+    transform: translate(-183px, 390px);
+}
+
+
+
+.user-telephone {
+    position: absolute;
+    font-family: Poppins-Medium;
+    color: #666666;
+    font-size: 15px;
+    text-align: center;
+    width: 90%;
+    height: 65px;
+
+    transform: translate(-183px, 430px);
+}
+
+.user-regNumber {
+    position: absolute;
+    font-family: Poppins-Medium;
+    color: #666666;
+    font-size: 15px;
+    text-align: center;
+    width: 90%;
+    height: 65px;
+
+    transform: translate(-183px, 825px);
+}
+
+.user-displacement {
+    position: absolute;
+    font-family: Poppins-Medium;
+    color: #666666;
+    font-size: 15px;
+    text-align: center;
+    width: 90%;
+    height: 65px;
+
+    transform: translate(-183px, 470px);
+}
+
+.spec-label {
+    position: absolute;
+    font-family: Montserrat-Regular;
+    color: #666666;
+    font-size: 16px;
+    text-align: center;
+    width: 90%;
+    height: 15px;
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+
+    transform: translate(-183px, 530px);
+}
+
+.spec-label:hover {
+    color: #57b846
+}
+
+.spec-div {
+    position: absolute;
+    width: 85%;
+    height: 240px;
+    overflow: hidden;
+    
+    transform: translate(26px, 570px);
+}
+
+.li-spec {
+    position: relative;
+    top: 15px;
+    font-family: Poppins-Medium;
+    color: #666666;
+    height: 45px;
+    text-align: center;
+
+    transform: translate(-20px, 0px);
+}

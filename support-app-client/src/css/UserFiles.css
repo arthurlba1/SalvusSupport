@@ -1,0 +1,44 @@
+.files-div {
+    position: absolute;
+    width: 85%;
+    height: 430px;
+    overflow: hidden;
+
+    transform: translate(26px, 425px);
+}
+
+.files {
+    position: relative;
+    font-family: Poppins-Regular;
+    color: #666666;
+    font-size: 18px;
+    text-align: center;
+
+    -webkit-transition: all 0.8s;
+    -o-transition: all 0.8s;
+    -moz-transition: all 0.8s;
+    transition: all 0.8s;
+}
+
+.files:hover {
+    color: #57b846;
+}
+
+.a-transform {
+    position: relative;
+    font-family: Poppins-Regular;
+    text-decoration: none;
+
+}
+
+.li-docs {
+    position: relative;
+    top: 15px;
+    font-family: Poppins-Regular;
+    color: #666666;
+    height: 45px;
+}
+
+.li-docs:hover {
+    color:#57b846;
+}

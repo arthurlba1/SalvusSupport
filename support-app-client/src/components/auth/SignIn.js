@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import methods from './../../service.js';
 import { createBrowserHistory } from 'history';
 import './../../App.css';
-import './../../css/signIn.css';
+import './../../css/SignIn.css';
 
 const INITIAL_STATE = {
     login: '',

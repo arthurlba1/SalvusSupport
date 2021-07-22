@@ -3,7 +3,8 @@ import Select from 'react-select'
 import methods from './../../service.js';
 import Util from '../../commons/Utils.js';
 import InputMask from "react-input-mask";
-import './../../css/signUp.css';
+import { createBrowserHistory } from 'history';
+import './../../css/SignUp.css';
 import './../../App.css';
 
 const INITIAL_STATE = {
@@ -23,7 +24,9 @@ const INITIAL_STATE = {
     step: 1,
     data: [],
     dataProf: [],
+    previewProf: [],
     dataSpec: [],
+    previewSpec: [],
     validEmail: false,
     previewAvatar: null,
     docs: [],
@@ -36,6 +39,7 @@ const genders = [
     { value: 'Outro', label: 'Prefiro não dizer' },
     { value: 'Outro', label: 'Outro' }
   ]
+  const history = createBrowserHistory();
 
   const selectStyle = {
     control: (styles, state) => ({
@@ -44,6 +48,7 @@ const genders = [
         backgroundColor: '#e6e6e6',
         border: 'none',
         width: '260px',
+        overflow: 'hidden',
         height: '50px',
         padding: '0 30px 0 0px',
         borderRadius: '25px',
@@ -57,9 +62,11 @@ const genders = [
         color: state.isSelected ? '#57b846' : '#666666',
         font: state.data.fontFamily, 
     }),
+    
     singleValue: (provided, state) => ({
         ...provided,
         color: state.data.color,
+        
     }),
     menuPortal: provided => ({
         ...provided, 
@@ -123,14 +130,14 @@ export default class SignUp extends Component {
                 availableSpec.push( {label: v.spec_name, value: v.specid})
             }
         })
-        this.setState({...this.state, dataSpec: availableSpec, profission: selected});
+        this.setState({...this.state, dataSpec: availableSpec, profission: selected, previewProf: event, previewSpec: []});
     }
     onSpecChanged = event => {
         let availableSpec = [];
         event.forEach(v => {
             availableSpec.push(v.value); 
         })
-        this.setState({...this.state, speciality: availableSpec});
+        this.setState({...this.state, speciality: availableSpec, previewSpec: event});
     }
     submitNext = event =>{
         if(this.state.step < 5){
@@ -167,9 +174,19 @@ export default class SignUp extends Component {
         User.append("location", this.state.location)
         User.append("displacement", this.state.displacement)
         User.append("avatar", this.state.avatar)
-        
+        this.state.docs.forEach(e => {
+            User.append("docs", e)
+        })
+        console.log(this.state.speciality)
+        console.log(User.get("speciality"))
         methods.createUser(User).then(res => {
-            console.log(res)
+            if(res.data.error){
+                alert(res.data.error)
+            }else{
+                localStorage.setItem("user_data", JSON.stringify(res.data));
+                history.push('/Dashboard');
+                history.go()
+            }
         });
     }
     avatarSelectedHandler = event => {
@@ -188,8 +205,8 @@ export default class SignUp extends Component {
         this.setState({...this.state, docs:docs});
     }
     docsList(docs) {
-        let data = (docs.map(item =>(<li className="li-docs" id="item.name">{item.name}<span className="span-docs" style={{color:"#red", cursor: "pointer"}} onClick={this.removeDoc.bind(this, item.name)}>x</span></li>)))
-        return data
+        return  (docs.map(item =>(<li className="li-docs" id="item.name">{item.name}<span className="span-docs" style={{color:"#red", cursor: "pointer"}} onClick={this.removeDoc.bind(this, item.name)}>x</span></li>)))
+        
         
     }
 
@@ -271,7 +288,7 @@ export default class SignUp extends Component {
             <form>
                 <div>
                     <div className="register-div">
-                        <Select className="input-profession" name="profission" placeholder="Profession" onChange={this.onProfChanged} options={this.state.dataProf}
+                        <Select className="input-profession" value={this.state.previewProf} name="profission" placeholder="Profession" onChange={this.onProfChanged} options={this.state.dataProf}
                         menuPortalTarget={document.body}
                         menuPosition={'fixed'}
                         styles={selectStyle}
@@ -299,12 +316,17 @@ export default class SignUp extends Component {
                     </div>
                 
                     <div className="register-multi">
-                        <Select className="input-spec" isMulti name="speciality" placeholder="Speciality" onChange={this.onSpecChanged} options={this.state.dataSpec}
+                        <Select className="input-spec"  value={this.state.previewSpec} isMulti name="speciality" placeholder="Speciality" onChange={this.onSpecChanged} options={this.state.dataSpec}
                         menuPortalTarget={document.body}
                         menuPosition={'fixed'}
                         multiValueLabel
                         multiValue={document.body}
-                        styles={selectStyle} 
+                        styles={{...selectStyle, valueContainer: (provided, state) => ({
+                            ...provided,
+                            overflow: 'auto',
+                            overflowY: 'scroll',
+                            maxHeight: '50px'
+                        }),} } 
                         required/>
                         <span className="focus-input"></span>
                         <span className="symbol-input">

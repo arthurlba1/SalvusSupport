@@ -16,6 +16,15 @@ const methods = {
     getProf: () => {
         return fetch('http://localhost:3001/getProf', {headers: headers.headers,method: "GET"})
     },
+    getProfInfo: (profid) => {
+        return fetch('http://localhost:3001/profile/'+ profid , {headers: headers.headers,method: "GET"})
+    },
+    getFiles: (userid) => {
+        return fetch('http://localhost:3001/files/' + userid, {headers: headers.headers,method: "GET"})
+    },
+    getSpec: (prof_id_fk) => {
+        return fetch('http://localhost:3001/spec/' + prof_id_fk, {headers: headers.headers,method: "GET"})
+    },
 }
 
 export default methods;
