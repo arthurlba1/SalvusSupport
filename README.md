@@ -15,6 +15,7 @@ Some technologies were used in the project.
 
 ## Dependencies
 For each technology some dependencies were used.
+
 .1 Front-End
 - Jest
 - InputMask
