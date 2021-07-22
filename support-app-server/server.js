@@ -102,7 +102,6 @@ app.post("/createUser",upload.fields([{name: "avatar", maxCount : 1}, {name: "do
                         }
                     });
                 });
-                //pool.end();
                 res.send({userid: resultUser.rows[0].userid, avatar: resultUser.rows[0].avatar, name: resultUser.rows[0].full_name, email: resultUser.rows[0].email, gender: resultUser.rows[0].gender,
                 birth_date: resultUser.rows[0].birth_date, prof_id_fk: resultUser.rows[0].prof_id_fk});
             }
@@ -168,6 +167,39 @@ app.get("/spec/:id", (req, res) => {
     });
 });
 
+app.get("/getCount", (req,res) => {
+    var pool = openConnection();
+    var countQuery = "SELECT COUNT(*) FROM professional_info WHERE prof_id_fk = $1";
+    var totalCountQuery = "SELECT COUNT(*) FROM professional_info";
+    pool.query(countQuery, [1], (errCount1, resultCount1) => {
+        if (errCount1){
+            console.log(errCount1);
+        }
+    pool.query(countQuery, [2], (errCount2, resultCount2) => {
+        if  (errCount2) {
+            console.log(errCount2)
+        }
+    pool.query(countQuery, [3], (errCount3, resultCount3) => {
+        if (errCount3) {
+            console.log(errCount3);
+        }
+    pool.query(countQuery, [4], (errCount4, resultCount4) => {
+        if (errCount4) {
+            console.log(errCount4);
+        }
+    pool.query(totalCountQuery, (errCount5, resultCount5) =>{
+        if(errCount5) {
+            console.log(errCount5)
+        } else {
+            res.send({medic: resultCount1.rows[0].count, audiologist: resultCount2.rows[0].count, nurseTech: resultCount3.rows[0].count, nurse: resultCount4.rows[0].count, total: resultCount5.rows[0].count});
+            pool.end();
+        }
+    });
+    });
+    });
+    }); 
+    });
+})
 app.get("/", express.static(path.join(__dirname, "./public")));
 
 app.listen(3001, () => {
